@@ -11,13 +11,28 @@ bl_info = {
     "category": "Object",
 }
 
-from . import addon
+if "bpy" not in locals():
+    import bpy
+    is_reloading = False
+else:
+    is_reloading = True
+
+if not is_reloading:
+    from . import addon
+    from . import preferences
+else:
+    import importlib
+    importlib.reload(addon)
+    importlib.reload(preferences)
+
 
 def register():
     addon.register()
-
+    preferences.register()
+    
 def unregister():
     addon.unregister()
+    preferences.unregister()
 
 if __name__ == "__main__":
     register()
