@@ -32,7 +32,7 @@ class BlendshapeSplitOperator(bpy.types.Operator):
         bm = bmesh.from_edit_mesh(obj.data)
         for i, v in enumerate(bm.verts):
             co_final = obj.matrix_parent_inverse @ v.co
-            v.select_set(co_final.x < 0)
+            v.select_set(co_final.x > 0)
         bm.select_mode |= {'VERT'}
         bm.select_flush_mode()
         obj.active_shape_key_index = shape_l_idx
@@ -44,7 +44,7 @@ class BlendshapeSplitOperator(bpy.types.Operator):
         bm = bmesh.from_edit_mesh(obj.data)
         for i, v in enumerate(bm.verts):
             co_final = obj.matrix_parent_inverse @ v.co
-            v.select_set(co_final.x > 0)
+            v.select_set(co_final.x < 0)
         bm.select_mode |= {'VERT'}
         bm.select_flush_mode()
         obj.active_shape_key_index = shape_r_idx
