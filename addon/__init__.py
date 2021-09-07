@@ -26,6 +26,7 @@ class BlendshapeSplitOperator(bpy.types.Operator):
 
         bpy.ops.object.mode_set(mode = 'EDIT')
 
+
         # Left side
         obj.active_shape_key_index = 0
         bm = bmesh.from_edit_mesh(obj.data)
@@ -49,8 +50,18 @@ class BlendshapeSplitOperator(bpy.types.Operator):
         obj.active_shape_key_index = shape_r_idx
         bpy.ops.mesh.blend_from_shape(shape=source, blend=1, add=False)
 
-
         bpy.ops.object.mode_set(mode = 'OBJECT')
+        
+        obj.active_shape_key_index = shape_l_idx
+        bpy.ops.object.shape_key_move(type='TOP')
+        for i in range(0, source_idx):
+            bpy.ops.object.shape_key_move(type='DOWN')
+            
+        obj.active_shape_key_index = shape_r_idx
+        bpy.ops.object.shape_key_move(type='TOP')
+        for i in range(0, source_idx + 1):
+            bpy.ops.object.shape_key_move(type='DOWN')
+        
         obj.active_shape_key_index = source_idx
         return {'FINISHED'}
 
