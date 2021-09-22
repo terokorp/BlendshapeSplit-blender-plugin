@@ -12,9 +12,22 @@ for mod in addon_utils.modules():
 class MyAddonPreferences(AddonPreferences):
     bl_idname = package_name
     
+    lsuffix: StringProperty(
+        name="Left blendshape suffix",
+        default=".L"
+    )
+    rsuffix: StringProperty(
+        name="Right blendshape suffix",
+        default=".R"
+    )
+
     def draw(self, context):
         layout = self.layout
-        
+        layout.label(text="Blendshape naming sceme")
+        layout.prop(self, "lsuffix")
+        layout.prop(self, "rsuffix")
+
+        layout.label(text="Donate")
         col = layout.column(align=True)
         row = col.row(align=True)
         row.scale_y = 2
