@@ -13,8 +13,7 @@ class BlendshapeSplitOperator(bpy.types.Operator):
         source = obj.active_shape_key.name
         source_idx = obj.active_shape_key_index
         basis_name = context.active_object.data.shape_keys.key_blocks[0].name
-        #addon_prefs = context.preferences.addons[__name__].preferences
-        addon_prefs = context.preferences.addons["BlendshapeSplit"].preferences
+        addon_prefs = context.preferences.addons[__name__.split(".")[0]].preferences
 
         if(source_idx == 0):
             return {'CANCELLED'}
